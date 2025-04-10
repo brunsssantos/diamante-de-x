@@ -4,11 +4,18 @@
     {
         static void Main(string[] args)
         {
-            int numero;
+            int numero = SolicitarNumeroImpar();
+            ExibirDiamente(numero);
+            Console.ReadLine();
+        }
+        //Função para solicitar número impar ao usuário
 
-            //Solicitar número impar ao usuário
+        static int SolicitarNumeroImpar()
+        {
+            int numero;
             do
             {
+                Console.Clear();
                 Console.WriteLine("Digite um número inteiro ímpar: ");
                 numero = Convert.ToInt32(Console.ReadLine());
 
@@ -22,30 +29,48 @@
 
             while (numero % 2 == 0); //Repete até o usuário digitar um número ímpar
 
-            //Gerar o diamante
+            return numero;
+        }
 
+        //Função para exibir o diamante
+
+        static void ExibirDiamente(int numero)
+        {
             int meio = numero / 2; //Linha central do diamante
+
             for (int i = 0; i < numero; i++)
             {
-                //Determinar número de X na linha
-                int qtdXs;
 
-                if (i <= meio)
-                {
-                    qtdXs = 1 + 2 * i;
-                }
-                else
-                {
-                    qtdXs = 1 + 2 * (numero - 1 - i);
-                }
-
+                int qtdXs = CalcularQuantidadeDeXs(i, meio, numero);
                 int espacos = (numero - qtdXs) / 2;
+                ExibirLinha(espacos, qtdXs);
 
-                Console.Write(new string(' ', espacos));
-                Console.WriteLine(new string('X', qtdXs));
-
-                Console.ReadLine();
             }
         }
+
+        //Função para calcular a quantidade de 'X' em uma linha
+        static int CalcularQuantidadeDeXs(int linhaAtual, int meio, int numero)
+        {
+            if (linhaAtual <= meio)
+            {
+                return 1 + 2 * linhaAtual;
+            }
+            else
+            {
+                return 1 + 2 * (numero - 1 - linhaAtual);
+            }
+
+        }
+
+        //Função para exibir uma linha com espaços e 'X'
+
+        static void ExibirLinha(int espacos, int qtdXs)
+        {
+            Console.Write(new string(' ', espacos));
+            Console.WriteLine(new string('X', qtdXs));
+
+        }
+
     }
 }
+
